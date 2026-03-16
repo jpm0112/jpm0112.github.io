@@ -15,21 +15,6 @@
   }, 3000);
 })();
 
-/* ===== Hero Title Shimmer (after clip reveal finishes) ===== */
-(function initShimmer() {
-  const title = document.querySelector('.hero__title');
-  if (!title) return;
-
-  // Wait for the clip-path animation to finish (~1.5s after page load)
-  setTimeout(() => {
-    title.classList.add('shimmer-ready');
-    // After shimmer animation ends, clean up
-    title.addEventListener('animationend', () => {
-      title.classList.remove('shimmer-ready');
-      title.classList.add('shimmer-done');
-    }, { once: true });
-  }, 1800);
-})();
 
 /* ===== Navigation ===== */
 (function initNav() {
@@ -206,38 +191,98 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   if (window.matchMedia('(pointer: fine)').matches === false) return;
 
   cards.forEach(card => {
+    let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+    let rafId = null;
+
+    function animate() {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      card.style.transform = `perspective(800px) rotateX(${currentX}deg) rotateY(${currentY}deg) translateY(-3px)`;
+      if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+        rafId = requestAnimationFrame(animate);
+      }
+    }
+
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-      card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      targetX = ((y - centerY) / centerY) * -3;
+      targetY = ((x - centerX) / centerX) * 3;
+      if (!rafId) rafId = requestAnimationFrame(animate);
     });
 
     card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
+      targetX = 0;
+      targetY = 0;
+      if (!rafId) rafId = requestAnimationFrame(animate);
+      // Smooth return to rest
+      function settle() {
+        currentX += (0 - currentX) * 0.06;
+        currentY += (0 - currentY) * 0.06;
+        card.style.transform = `perspective(800px) rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+        if (Math.abs(currentX) > 0.01 || Math.abs(currentY) > 0.01) {
+          rafId = requestAnimationFrame(settle);
+        } else {
+          card.style.transform = '';
+          rafId = null;
+        }
+      }
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(settle);
     });
   });
 })();
 
-/* ===== Magnetic button effect ===== */
+/* ===== Magnetic button effect (lerped like tilt) ===== */
 (function initMagnetic() {
   const buttons = document.querySelectorAll('.btn--filled, .btn--ghost, .nav__cta');
   if (window.matchMedia('(pointer: fine)').matches === false) return;
 
   buttons.forEach(btn => {
+    let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+    let rafId = null;
+
+    function animate() {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      btn.style.transform = `translate(${currentX}px, ${currentY}px)`;
+      if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+        rafId = requestAnimationFrame(animate);
+      } else {
+        rafId = null;
+      }
+    }
+
     btn.addEventListener('mousemove', (e) => {
       const rect = btn.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+      targetX = x * 0.12;
+      targetY = y * 0.12;
+      if (!rafId) rafId = requestAnimationFrame(animate);
     });
 
     btn.addEventListener('mouseleave', () => {
-      btn.style.transform = '';
+      targetX = 0;
+      targetY = 0;
+      if (!rafId) rafId = requestAnimationFrame(animate);
+      // Smooth settle back to rest
+      function settle() {
+        currentX += (0 - currentX) * 0.06;
+        currentY += (0 - currentY) * 0.06;
+        btn.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        if (Math.abs(currentX) > 0.01 || Math.abs(currentY) > 0.01) {
+          rafId = requestAnimationFrame(settle);
+        } else {
+          btn.style.transform = '';
+          rafId = null;
+        }
+      }
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(settle);
     });
   });
 })();
@@ -256,62 +301,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
   window.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
-})();
-
-/* ===== Custom Cursor ===== */
-(function initCursor() {
-  if (window.matchMedia('(pointer: fine)').matches === false) return;
-  if (window.matchMedia('(max-width: 768px)').matches) return;
-
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  if (!dot || !ring) return;
-
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
-
-    if (!dot.classList.contains('visible')) {
-      dot.classList.add('visible');
-      ring.classList.add('visible');
-    }
-  });
-
-  // Smooth ring follow
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  // Expand ring on hoverable elements
-  const hoverTargets = 'a, button, .btn, .project, .stat, .edu__card, .contact__item, .skill-col';
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest(hoverTargets)) {
-      ring.classList.add('hovering');
-    }
-  });
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest(hoverTargets)) {
-      ring.classList.remove('hovering');
-    }
-  });
-
-  // Hide on mouse leave
-  document.addEventListener('mouseleave', () => {
-    dot.classList.remove('visible');
-    ring.classList.remove('visible');
-  });
-  document.addEventListener('mouseenter', () => {
-    dot.classList.add('visible');
-    ring.classList.add('visible');
-  });
 })();
 
 /* ===== Button Ripple Effect ===== */
@@ -368,6 +357,270 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   }, { threshold: 0.3 });
 
   numbers.forEach(num => observer.observe(num));
+})();
+
+/* ===== Floating Particle System ===== */
+(function initParticles() {
+  const canvas = document.getElementById('heroParticles');
+  if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let mouse = { x: -1000, y: -1000 };
+  let animFrame;
+
+  function resize() {
+    const hero = canvas.parentElement.parentElement;
+    canvas.width = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+  }
+
+  function createParticles() {
+    particles = [];
+    const count = Math.floor((canvas.width * canvas.height) / 18000);
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5 + 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        opacity: Math.random() * 0.3 + 0.1,
+        pulseSpeed: Math.random() * 0.02 + 0.005,
+        pulsePhase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function drawParticles(time) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p, i) => {
+      // Pulse opacity
+      const pulse = Math.sin(time * p.pulseSpeed + p.pulsePhase) * 0.15 + 0.85;
+      const alpha = p.opacity * pulse;
+
+      // Mouse repulsion
+      const dx = p.x - mouse.x;
+      const dy = p.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        const force = (120 - dist) / 120;
+        p.x += dx * force * 0.02;
+        p.y += dy * force * 0.02;
+      }
+
+      // Move
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Wrap edges
+      if (p.x < -10) p.x = canvas.width + 10;
+      if (p.x > canvas.width + 10) p.x = -10;
+      if (p.y < -10) p.y = canvas.height + 10;
+      if (p.y > canvas.height + 10) p.y = -10;
+
+      // Draw particle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(184, 115, 51, ${alpha})`;
+      ctx.fill();
+
+      // Draw connections
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const cdx = p.x - p2.x;
+        const cdy = p.y - p2.y;
+        const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
+        if (cdist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(184, 115, 51, ${0.06 * (1 - cdist / 100)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    });
+
+    animFrame = requestAnimationFrame(drawParticles);
+  }
+
+  canvas.parentElement.parentElement.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  canvas.parentElement.parentElement.addEventListener('mouseleave', () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
+  resize();
+  createParticles();
+  requestAnimationFrame(drawParticles);
+
+  window.addEventListener('resize', () => {
+    resize();
+    createParticles();
+  });
+
+  // Stop animation when hero is not in view
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        cancelAnimationFrame(animFrame);
+      } else {
+        requestAnimationFrame(drawParticles);
+      }
+    });
+  }, { threshold: 0 });
+  heroObserver.observe(canvas.parentElement.parentElement);
+})();
+
+/* ===== Text Scramble on Section Numbers ===== */
+(function initTextScramble() {
+  const chars = '0123456789!@#$%&*';
+  const numbers = document.querySelectorAll('.section__number');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const finalText = el.textContent;
+        const duration = 800;
+        const start = performance.now();
+
+        function scramble(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          let result = '';
+
+          for (let i = 0; i < finalText.length; i++) {
+            if (progress > (i + 1) / finalText.length) {
+              result += finalText[i];
+            } else {
+              result += chars[Math.floor(Math.random() * chars.length)];
+            }
+          }
+
+          el.textContent = result;
+          if (progress < 1) {
+            requestAnimationFrame(scramble);
+          } else {
+            el.textContent = finalText;
+          }
+        }
+
+        requestAnimationFrame(scramble);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  numbers.forEach(num => observer.observe(num));
+})();
+
+/* ===== Word-by-Word Section Title Reveal ===== */
+(function initWordReveal() {
+  const titles = document.querySelectorAll('.section__title');
+
+  titles.forEach(title => {
+    const text = title.textContent.trim();
+    const words = text.split(/\s+/);
+    title.innerHTML = '';
+    title.classList.add('word-reveal');
+
+    words.forEach((word, i) => {
+      const span = document.createElement('span');
+      span.classList.add('word');
+      span.textContent = word;
+      span.style.transitionDelay = `${i * 0.08}s`;
+      title.appendChild(span);
+      // Add space between words
+      if (i < words.length - 1) {
+        title.appendChild(document.createTextNode('\u00A0'));
+      }
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  titles.forEach(title => observer.observe(title));
+})();
+
+/* ===== Card Scale-In on Scroll ===== */
+(function initScaleReveal() {
+  // Apply scale-reveal to project cards, edu cards, and skill columns
+  const cards = document.querySelectorAll('.project, .edu__card, .skill-col, .pub, .contact__item');
+
+  cards.forEach((card, i) => {
+    if (!card.classList.contains('reveal')) {
+      card.classList.add('scale-reveal');
+    } else {
+      // Replace reveal with scale-reveal for a more dramatic entrance
+      card.classList.remove('reveal');
+      card.classList.add('scale-reveal');
+    }
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.05,
+    rootMargin: '0px 0px -30px 0px'
+  });
+
+  document.querySelectorAll('.scale-reveal').forEach(el => observer.observe(el));
+})();
+
+/* ===== Parallax Depth on Scroll ===== */
+(function initParallaxDepth() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(max-width: 768px)').matches) return;
+
+  const layers = [
+    { selector: '.about__stats', speed: 0.05 },
+    { selector: '.edu__cards', speed: 0.03 },
+    { selector: '.section__number', speed: -0.08, individual: true },
+  ];
+
+  function updateParallax() {
+    const scrollY = window.scrollY;
+
+    layers.forEach(layer => {
+      const elements = layer.individual
+        ? document.querySelectorAll(layer.selector)
+        : [document.querySelector(layer.selector)];
+
+      elements.forEach(el => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const viewCenter = window.innerHeight / 2;
+        const offset = (center - viewCenter) * layer.speed;
+        el.style.transform = el.style.transform
+          ? el.style.transform.replace(/translateY\([^)]+\)/, `translateY(${offset}px)`)
+          : `translateY(${offset}px)`;
+      });
+    });
+  }
+
+  window.addEventListener('scroll', updateParallax, { passive: true });
 })();
 
 /* ===== Skill list stagger animation ===== */

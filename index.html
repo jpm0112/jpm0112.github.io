@@ -16,16 +16,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 <body>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
-
-  <!-- Cursor Dot (desktop only) -->
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- Loader -->
   <div class="loader" id="loader">
@@ -35,7 +31,7 @@
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
-      <a href="#hero" class="nav__logo">Juan<span class="nav__logo-dot">.</span></a>
+      <a href="#hero" class="nav__logo">Juan Pablo Morande<span class="nav__logo-dot">.</span></a>
       <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span>
       </button>
@@ -45,7 +41,7 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#publications">Publications</a></li>
-        <li><a href="#contact" class="nav__cta">Let's Talk</a></li>
+        <li><a href="#contact" class="nav__cta">Contact</a></li>
       </ul>
     </div>
   </nav>
@@ -56,6 +52,7 @@
   <!-- Hero Section -->
   <section class="hero" id="hero">
     <div class="hero__bg">
+      <canvas class="hero__particles" id="heroParticles"></canvas>
       <div class="hero__grid-pattern"></div>
     </div>
     <div class="container hero__container">
@@ -69,13 +66,14 @@
           <span class="anim-clip" style="--d:2"><em>&</em> Machine Learning</span>
         </h1>
         <p class="hero__desc anim-reveal" style="--d:3">
-          I'm <strong>Juan P. Morande</strong>, a researcher turning complex logistics, scheduling,
-          and supply chain problems into elegant mathematical and computational solutions.
+          I'm <strong>Juan Pablo Morande</strong>, a PhD candidate in Industrial and Systems Engineering
+          at Auburn University. I work on logistics, scheduling, and supply chain problems
+          using optimization and machine learning.
         </p>
         <div class="hero__actions anim-reveal" style="--d:4">
           <a href="#projects" class="btn btn--filled">View Projects</a>
           <a href="#contact" class="btn btn--ghost">Contact Me</a>
-          <a href="resume.pdf" target="_blank" rel="noopener" class="btn btn--text">Resume &darr;</a>
+          <a href="JPMorande_Resume.pdf" target="_blank" rel="noopener" class="btn btn--text">Resume <span class="btn__arrow">&darr;</span></a>
         </div>
       </div>
       <div class="hero__right anim-reveal" style="--d:2">
@@ -89,21 +87,81 @@
             <span>Simulation</span>
             <span>Supply Chain</span>
             <span>Forecasting</span>
-            <span>Explainable AI</span>
+            <span>LLM Applications</span>
           </div>
           <div class="hero__card-divider"></div>
           <div class="hero__card-row">
-            <span class="hero__card-label">Currently</span>
+            <span class="hero__card-label">Expected Graduation</span>
           </div>
-          <p class="hero__card-text">PhD Candidate at Auburn University, expected Dec 2026</p>
+          <p class="hero__card-text">PhD, Auburn University — December 2026</p>
+          <div class="hero__card-divider"></div>
+          <div class="hero__card-row">
+            <span class="hero__card-label">Looking For</span>
+          </div>
+          <p class="hero__card-text">Full-time industry jobs in the US. Open for relocation.</p>
+          <div class="hero__card-divider"></div>
+          <div class="hero__card-row">
+            <span class="hero__card-label">Work Authorization</span>
+          </div>
+          <div class="hero__card-tags hero__card-tags--small">
+            <span>Currently F-1 Visa</span>
+            <span>OPT/STEM OPT Eligible</span>
+            <span>H-1B1 Eligible (Chile & Singapore only visa)</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="hero__scroll anim-reveal" style="--d:5">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
   </section>
+
+  <!-- Marquee Ticker -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Optimization</span>
+      <span class="marquee__dot"></span>
+      <span>Machine Learning</span>
+      <span class="marquee__dot"></span>
+      <span>Supply Chain</span>
+      <span class="marquee__dot"></span>
+      <span>Deep Learning</span>
+      <span class="marquee__dot"></span>
+      <span>Operations Research</span>
+      <span class="marquee__dot"></span>
+      <span>Forecasting</span>
+      <span class="marquee__dot"></span>
+      <span>Stochastic Programming</span>
+      <span class="marquee__dot"></span>
+      <span>Explainable AI</span>
+      <span class="marquee__dot"></span>
+      <span>Bayesian Statistics</span>
+      <span class="marquee__dot"></span>
+      <span>LLM Applications</span>
+      <span class="marquee__dot"></span>
+      <span>Simulation</span>
+      <span class="marquee__dot"></span>
+      <span>Optimization</span>
+      <span class="marquee__dot"></span>
+      <span>Machine Learning</span>
+      <span class="marquee__dot"></span>
+      <span>Supply Chain</span>
+      <span class="marquee__dot"></span>
+      <span>Deep Learning</span>
+      <span class="marquee__dot"></span>
+      <span>Operations Research</span>
+      <span class="marquee__dot"></span>
+      <span>Forecasting</span>
+      <span class="marquee__dot"></span>
+      <span>Stochastic Programming</span>
+      <span class="marquee__dot"></span>
+      <span>Explainable AI</span>
+      <span class="marquee__dot"></span>
+      <span>Bayesian Statistics</span>
+      <span class="marquee__dot"></span>
+      <span>LLM Applications</span>
+      <span class="marquee__dot"></span>
+      <span>Simulation</span>
+      <span class="marquee__dot"></span>
+    </div>
+  </div>
 
   <!-- About Section -->
   <section class="section about" id="about">
@@ -115,33 +173,38 @@
       <div class="about__grid">
         <div class="about__text reveal">
           <p>
-            I'm a fifth-year PhD student in Industrial and Systems Engineering at
-            <strong>Auburn University</strong>, with expertise at the intersection of
-            operations research, machine learning, and mathematical optimization.
+            I'm a fifth-year PhD candidate in Industrial and Systems Engineering at
+            <strong>Auburn University</strong>. My research covers operations research, machine
+            learning, optimization, and simulation, with a dissertation on advanced methods
+            for complex logistics problems. I've been involved in the INFORMS student chapter
+            since 2022, serving as Secretary, Vice-President, and President.
           </p>
           <p>
-            From optimizing military aircraft scheduling for the U.S. Air Force to predicting
-            freight rates with explainable AI, I thrive on challenges that require both
-            analytical rigor and creative problem-solving. My work spans collaborations with
-            Frontier Technology Inc., the Department of Homeland Security, and Norway's NTNU.
+            My research has spanned two-dimensional truck loading optimization,
+            military aircraft and crew scheduling for U.S. Air Force wargaming simulations,
+            deep learning applied to illicit supply chain detection, freight rate forecasting
+            with explainable AI, and drone-based order-picking in warehouses. In 2024, I spent
+            a semester as a visiting researcher at NTNU in Norway, developing closed-loop
+            supply chain models.
           </p>
           <p>
-            Originally from <strong>Chile</strong>, I bring a multicultural perspective and am
-            fluent in both Spanish and English. I lead the INFORMS student chapter and
-            am passionate about bridging academia and industry.
+            I'm originally from <strong>Chile</strong> and fluent in both Spanish and English.
+            I started in research doing humanitarian logistics simulation at Universidad de
+            los Andes, and I'm now looking for industry roles where I can apply optimization,
+            data science, and machine learning to real-world problems.
           </p>
         </div>
         <div class="about__stats">
           <div class="stat reveal" style="--d:0">
-            <span class="stat__number" data-count="5" data-suffix="+">0</span>
+            <span class="stat__number" data-count="7" data-suffix="+">0</span>
             <span class="stat__label">Years of<br/>Research</span>
           </div>
           <div class="stat reveal" style="--d:1">
-            <span class="stat__number" data-count="6">0</span>
+            <span class="stat__number" data-count="8">0</span>
             <span class="stat__label">Major<br/>Projects</span>
           </div>
           <div class="stat reveal" style="--d:2">
-            <span class="stat__number" data-count="3">0</span>
+            <span class="stat__number" data-count="2">0</span>
             <span class="stat__label">Degrees<br/>Earned</span>
           </div>
           <div class="stat reveal" style="--d:3">
@@ -167,11 +230,11 @@
             <h3>Research & Teaching Assistant</h3>
             <h4>Auburn University</h4>
             <ul>
-              <li>Developed optimization models and heuristics for aircraft/crew scheduling (WASP project, AFMC through Frontier Technology Inc.)</li>
-              <li>Researched deep learning and reinforcement learning for illicit supply chain disruption (DHS through Arizona State University)</li>
-              <li>Formulated 2D vehicle loading optimization for a Colombian motorcycle manufacturer</li>
-              <li>Implemented explainable AI (LSTM, Transformers, TFT) for freight rate forecasting in Chilean ports</li>
-              <li>TA for Engineering Economics, Statistical Quality Control, Data Mining, and Adaptive Optimization</li>
+              <li>Developed optimization models and heuristics for aircraft/crew scheduling (WASP project, AFMC through Frontier Technology Inc.).</li>
+              <li>Researched deep learning and reinforcement learning for illicit supply chains, focusing on opioid precursor trafficking patterns (DHS CAOE Grant through Arizona State University).</li>
+              <li>Formulated 2D vehicle loading optimization for a Colombian motorcycle assembler.</li>
+              <li>Forecasted freight rates in Chilean ports using LSTM, Transformers, and TFT models, with LIME and SHAP for interpretability.</li>
+              <li>TA for Engineering Economics, Statistical Quality Control, Data Mining, and Adaptive Optimization.</li>
             </ul>
           </div>
         </article>
@@ -181,21 +244,86 @@
             <h3>Visiting Researcher</h3>
             <h4>Norwegian University of Science and Technology (NTNU)</h4>
             <ul>
-              <li>Developed closed-loop supply chain MILP models for strategic and product design decisions</li>
-              <li>Published in <em>Omega</em> (2025): Stochastic programming framework for supply chain viability</li>
+              <li>Developed closed-loop supply chain MILP models for strategic and product design decisions.</li>
+              <li>Published in <em>Omega</em> (2025): Stochastic programming framework for supply chain viability.</li>
             </ul>
           </div>
         </article>
         <article class="exp__item reveal">
-          <div class="exp__date">2022 &mdash; Present</div>
+          <div class="exp__date">Oct 2020 &mdash; Jul 2021</div>
           <div class="exp__content">
-            <h3>INFORMS Chapter Leadership</h3>
-            <h4>Institute for Operations Research and the Management Sciences</h4>
+            <h3>Research Assistant</h3>
+            <h4>Universidad de los Andes, Chile</h4>
             <ul>
-              <li>Secretary (2022-23), Vice-President (2023-24), President (2024-25), Vice-President (2025-present)</li>
+              <li>Developed simulation-based optimization for humanitarian logistics in natural disaster scenarios.</li>
+              <li>Work culminated in a conference presentation.</li>
             </ul>
           </div>
         </article>
+        <article class="exp__item reveal">
+          <div class="exp__date">Dec 2019 &mdash; Feb 2020</div>
+          <div class="exp__content">
+            <h3>Software Development Intern</h3>
+            <h4>Snow Consulting</h4>
+            <ul>
+              <li>Supported the development area with data analysis and Business Intelligence applications.</li>
+              <li>Explored and implemented data mining techniques.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="exp__item reveal">
+          <div class="exp__date">Mar &mdash; Aug 2019</div>
+          <div class="exp__content">
+            <h3>Teaching Assistant</h3>
+            <h4>Universidad de los Andes, Chile</h4>
+            <ul>
+              <li>Taught weekly review sessions for the Statistical Methods course.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="exp__item reveal">
+          <div class="exp__date">Dec 2018 &mdash; Mar 2019</div>
+          <div class="exp__content">
+            <h3>Research Assistant</h3>
+            <h4>Universidad de los Andes, Chile</h4>
+            <ul>
+              <li>Assisted in researching and developing discrete-event simulation techniques, culminating in a teaching guide and user manual.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <!-- Awards & Leadership -->
+      <div class="edu__row" style="margin-top: 40px;">
+        <div class="section__subheader reveal">
+          <h3>Awards & Leadership</h3>
+        </div>
+        <div class="edu__cards">
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 1rem;">INFORMS</span>
+            <span class="edu__field">Chapter Leadership</span>
+            <span class="edu__school">Secretary, VP, President, VP (current)</span>
+            <span class="edu__year">2022 &mdash; Present</span>
+          </div>
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 0.85rem;">Amazon</span>
+            <span class="edu__field">SCOT INFORMS Scholarship</span>
+            <span class="edu__school">Awarded 2022</span>
+            <span class="edu__year">2022</span>
+          </div>
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 0.85rem;">SPEC</span>
+            <span class="edu__field">Cybersecurity Program</span>
+            <span class="edu__school">UVA Wise</span>
+            <span class="edu__year">2019</span>
+          </div>
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 0.85rem;">Founder</span>
+            <span class="edu__field">Political Student Organization</span>
+            <span class="edu__school">Universidad de los Andes, Chile</span>
+            <span class="edu__year">2014 &mdash; 2016</span>
+          </div>
+        </div>
       </div>
 
       <!-- Education -->
@@ -218,9 +346,9 @@
           </div>
           <div class="edu__card reveal">
             <span class="edu__degree">BS</span>
-            <span class="edu__field">Industrial Engineering</span>
+            <span class="edu__field">Industrial Engineering, Minor in Political Science</span>
             <span class="edu__school">Universidad de los Andes, Chile</span>
-            <span class="edu__year">2020</span>
+            <span class="edu__year">2012 &mdash; 2020</span>
           </div>
         </div>
       </div>
@@ -251,9 +379,9 @@
           <span class="project__num">01</span>
           <div class="project__content">
             <h3>Freight Rate Forecasting with XAI</h3>
-            <p>Explainable AI system using Temporal Fusion Transformers, LSTMs, and attention models to predict shipping freight rates. Features LIME-based interpretability and Bayesian hyperparameter optimization.</p>
+            <p>Applied Temporal Fusion Transformers, LSTMs, and attention models to predict shipping freight rates in Chilean ports. Used LIME and SHAP for interpretability and Bayesian methods for hyperparameter tuning. The explainability analysis revealed key drivers behind rate fluctuations, providing actionable insights for maritime logistics decision-making.</p>
             <div class="project__tags">
-              <span>PyTorch</span><span>Transformers</span><span>LIME</span><span>Time Series</span>
+              <span>PyTorch</span><span>Transformers</span><span>LIME</span><span>SHAP</span><span>Time Series</span>
             </div>
           </div>
         </article>
@@ -263,7 +391,7 @@
           <span class="project__num">02</span>
           <div class="project__content">
             <h3>Multi-Objective Flight Scheduling</h3>
-            <p>Optimization system for military aircraft allocation and crew scheduling using genetic algorithms and heuristic methods. Handles aircraft range, refueling, and personnel constraints.</p>
+            <p>Built optimization models and heuristics for U.S. Air Force wargaming simulations, scheduling military aircraft and crew across missions while balancing range, refueling, and personnel constraints. Developed MILP formulations and metaheuristic solvers including Simulated Annealing, Tabu Search, and Genetic Algorithms.</p>
             <div class="project__tags">
               <span>Pyomo</span><span>Genetic Algorithms</span><span>MILP</span><span>Multi-Objective</span>
             </div>
@@ -274,10 +402,10 @@
           <div class="project__glow"></div>
           <span class="project__num">03</span>
           <div class="project__content">
-            <h3>Supply Chain Optimization</h3>
-            <p>Stochastic programming framework for supply chain viability, integrating product development and design decisions. Published in <em>Omega</em> (2025). Developed at NTNU, Norway.</p>
+            <h3>Closed-Loop Supply Chain Optimization</h3>
+            <p>Built a stochastic programming framework to integrate product development and design decisions into supply chains facing disruptive events, informed by two Norwegian circular manufacturing case studies. Results showed resilience improvements of 4–5% and budget savings of 2–10% while enhancing sustainability and circularity. Published in <em>Omega</em> (2025), done during my visit to NTNU, Norway.</p>
             <div class="project__tags">
-              <span>Stochastic Programming</span><span>MILP</span><span>Supply Chain</span><span>Published</span>
+              <span>Stochastic Programming</span><span>MILP</span><span>Supply Chain</span>
             </div>
           </div>
           <a href="https://doi.org/10.1016/j.omega.2025.103317" target="_blank" rel="noopener" class="project__link">Read Paper &rarr;</a>
@@ -288,9 +416,21 @@
           <span class="project__num">04</span>
           <div class="project__content">
             <h3>2D Truck Loading Optimization</h3>
-            <p>Optimization methodology for two-dimensional vehicle loading with heterogeneous fleets and delay minimization. Applied to a Colombian motorcycle assembly company.</p>
+            <p>Developed a three-stage matheuristic combining MILP models to solve a 2D vehicle loading problem for a Colombian motorcycle assembler with a heterogeneous fleet. The approach maximizes on-time deliveries, minimizes trucks used, and reduces rehandles during unloading. Results showed increased demand fulfillment over 1D methods, especially under relaxed credit constraints.</p>
             <div class="project__tags">
-              <span>Pyomo</span><span>Bin Packing</span><span>Constraint Programming</span><span>Logistics</span>
+              <span>MILP</span><span>Matheuristic</span><span>2D Bin Packing</span><span>Logistics</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project reveal" style="--d:4">
+          <div class="project__glow"></div>
+          <span class="project__num">05</span>
+          <div class="project__content">
+            <h3>Drone Order-Picking Optimization</h3>
+            <p>Developed cooperative drone-worker order-picking models for warehouses, progressing from independent routing to fully coordinated systems with synchronization, battery constraints, and multi-trip drone scheduling. Built MILP formulations using CVRP with MTZ subtour elimination and Big-M linearizations, minimizing makespan across multiple scenarios.</p>
+            <div class="project__tags">
+              <span>MILP</span><span>CVRP</span><span>Drones</span><span>Warehousing</span>
             </div>
           </div>
         </article>
@@ -309,28 +449,38 @@
       <div class="projects__grid">
         <article class="project reveal" style="--d:0">
           <div class="project__glow"></div>
-          <span class="project__num">05</span>
+          <span class="project__num">06</span>
           <div class="project__content">
-            <h3>Lontra Consultadores Website</h3>
-            <p>Professional bilingual business website for a logistics consulting firm. Responsive design with smooth animations and internationalization support.</p>
+            <h3>Web Development & Showcase Sites</h3>
+            <p>Built several portfolio and business websites, including bilingual company pages, personal sites, and this very portfolio. All with responsive layouts and clean design.</p>
             <div class="project__tags">
-              <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind CSS</span>
+              <span>HTML/CSS</span><span>JavaScript</span><span>Next.js</span><span>Responsive Design</span>
             </div>
           </div>
-          <a href="https://github.com/jpmorande" target="_blank" rel="noopener" class="project__link">View on GitHub &rarr;</a>
         </article>
 
         <article class="project reveal" style="--d:1">
           <div class="project__glow"></div>
-          <span class="project__num">06</span>
+          <span class="project__num">07</span>
           <div class="project__content">
-            <h3>NutriTrack Mobile App</h3>
-            <p>Cross-platform mobile health and fitness tracking app for iOS, Android, and web. Features nutrition logging, weight tracking, and progress dashboards.</p>
+            <h3>Health & Fitness Mobile App</h3>
+            <p>Cross-platform mobile app for health and fitness tracking on iOS, Android, and web. Includes nutrition logging, weight tracking, and progress dashboards. Started as an excuse to try AI-powered dev tools (and to avoid paying for fitness apps).</p>
             <div class="project__tags">
-              <span>React Native</span><span>Expo</span><span>TypeScript</span><span>SQLite</span>
+              <span>React Native</span><span>SQLite</span><span>iOS</span><span>Android</span>
             </div>
           </div>
-          <a href="https://github.com/jpmorande" target="_blank" rel="noopener" class="project__link">View on GitHub &rarr;</a>
+        </article>
+
+        <article class="project reveal" style="--d:2">
+          <div class="project__glow"></div>
+          <span class="project__num">08</span>
+          <div class="project__content">
+            <h3>Chilean Pension Fund Legal Advisor</h3>
+            <p>Compliance advisor tool for Chilean pension fund administrators (AFPs). Uses a hybrid RAG pipeline with bi-encoder retrieval and cross-encoder reranking over 4,500+ legal document chunks, paired with a QLoRA fine-tuned Qwen2.5-7B model to answer regulatory questions citing relevant legal documentation.</p>
+            <div class="project__tags">
+              <span>LLM</span><span>Hybrid RAG</span><span>QLoRA</span><span>Cross-Encoder Reranker</span>
+            </div>
+          </div>
         </article>
       </div>
     </div>
@@ -351,11 +501,10 @@
           <h3>Optimization & OR</h3>
           <ul>
             <li>Mixed-Integer Linear Programming</li>
-            <li>Heuristic & Metaheuristic Optimization</li>
+            <li>Heuristics, Metaheuristics & Matheuristics</li>
             <li>Stochastic Programming</li>
             <li>Multi-Objective Optimization</li>
-            <li>Genetic Algorithms</li>
-            <li>Constraint Programming</li>
+            <li>Simulation (SIMIO, Arena, Plant Simulation, SimPy)</li>
           </ul>
         </div>
         <div class="skill-col reveal">
@@ -364,11 +513,12 @@
           </div>
           <h3>Machine Learning & AI</h3>
           <ul>
-            <li>Deep Learning (LSTM, Transformers, TFT)</li>
+            <li>Deep Learning Architectures (LSTM, Transformers, TFT)</li>
             <li>Reinforcement Learning</li>
             <li>Explainable AI (XAI)</li>
             <li>Time Series Forecasting</li>
-            <li>Bayesian Optimization</li>
+            <li>Bayesian Statistics & Optimization</li>
+            <li>LLM Applications (Hybrid RAG, LoRA Fine-Tuning)</li>
           </ul>
         </div>
         <div class="skill-col reveal">
@@ -378,10 +528,11 @@
           <h3>Programming & Tools</h3>
           <ul>
             <li>Python, R, Java, SQL</li>
-            <li>PyTorch, Pyomo</li>
-            <li>React / Next.js, TypeScript</li>
-            <li>Statistical Modelling</li>
-            <li>Simulation & Experimental Design</li>
+            <li>PyTorch, Pyomo, MILP Solvers</li>
+            <li>Statistical Modeling & Six Sigma</li>
+            <li>Experimental Design (DOE)</li>
+            <li>Data Visualization & Minitab</li>
+            <li>Git & Hugging Face</li>
           </ul>
         </div>
       </div>
@@ -406,7 +557,40 @@
           </div>
         </div>
       </div>
-      <p class="pub__note reveal">Additional manuscripts in preparation &mdash; covering freight rate forecasting with explainable AI and multi-objective military aircraft scheduling.</p>
+      <p class="pub__note reveal">Other manuscripts in preparation on freight rate forecasting with explainable AI and two-dimensional truck loading optimization.</p>
+
+      <!-- Conference Presentations -->
+      <div class="edu__row" style="margin-top: 48px;">
+        <div class="section__subheader reveal">
+          <h3>Conference Presentations</h3>
+        </div>
+        <div class="edu__cards">
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 0.85rem;">INFORMS</span>
+            <span class="edu__field">Annual Meeting</span>
+            <span class="edu__school">Atlanta, GA &bull; Phoenix, AZ &bull; Indianapolis, IN</span>
+            <span class="edu__year">2025 &bull; 2023 &bull; 2022</span>
+          </div>
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 0.85rem;">IFORS</span>
+            <span class="edu__field">23rd Triennial Conference</span>
+            <span class="edu__school">Santiago, Chile</span>
+            <span class="edu__year">2023</span>
+          </div>
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 0.85rem;">OPTIMA</span>
+            <span class="edu__field">XV Chilean Conference on OR</span>
+            <span class="edu__school">Coquimbo, Chile</span>
+            <span class="edu__year">2025</span>
+          </div>
+          <div class="edu__card reveal">
+            <span class="edu__degree" style="font-size: 0.85rem;">ICPR</span>
+            <span class="edu__field">ICPR Americas 2020</span>
+            <span class="edu__school">Virtual</span>
+            <span class="edu__year">2020</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -415,14 +599,15 @@
     <div class="container">
       <div class="section__header">
         <span class="section__number reveal">06</span>
-        <h2 class="section__title reveal">Let's Connect</h2>
+        <h2 class="section__title reveal">Contact</h2>
       </div>
       <p class="contact__intro reveal">
-        I'm seeking opportunities in operations research, data science, and optimization engineering. Open to both industry and academic roles &mdash; I'd love to hear from you.
+        I would love to talk. Whether it's a job opportunity, a collaboration, or just to connect on LinkedIn, don't hesitate to reach out.
       </p>
       <div class="contact__cta reveal">
-        <a href="mailto:jpm0112@auburn.edu" class="btn btn--filled">Get in Touch</a>
-        <a href="resume.pdf" target="_blank" rel="noopener" class="btn btn--ghost">Download Resume</a>
+        <a href="mailto:jpm0112@auburn.edu" class="btn btn--filled">Send me an Email</a>
+        <a href="https://www.linkedin.com/in/jpmorande/?action=connect" target="_blank" rel="noopener" class="btn btn--filled">Connect on LinkedIn</a>
+        <a href="JPMorande_Resume.pdf" target="_blank" rel="noopener" class="btn btn--ghost">Download Resume</a>
       </div>
       <div class="contact__links reveal">
         <a href="mailto:jpm0112@auburn.edu" class="contact__item">
@@ -433,11 +618,11 @@
           <span class="contact__item-label">LinkedIn</span>
           <span class="contact__item-value">linkedin.com/in/jpmorande</span>
         </a>
-        <a href="https://github.com/jpmorande" target="_blank" rel="noopener" class="contact__item">
+        <a href="https://github.com/jpm0112" target="_blank" rel="noopener" class="contact__item">
           <span class="contact__item-label">GitHub</span>
-          <span class="contact__item-value">github.com/jpmorande</span>
+          <span class="contact__item-value">github.com/jpm0112</span>
         </a>
-        <a href="https://scholar.google.com/" target="_blank" rel="noopener" class="contact__item">
+        <a href="https://scholar.google.com/citations?user=lm60Dp0AAAAJ&hl=es&oi=ao" target="_blank" rel="noopener" class="contact__item">
           <span class="contact__item-label">Google Scholar</span>
           <span class="contact__item-value">View Publications</span>
         </a>
@@ -453,7 +638,7 @@
         <a href="https://www.linkedin.com/in/jpmorande/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
-        <a href="https://github.com/jpmorande" target="_blank" rel="noopener" aria-label="GitHub">
+        <a href="https://github.com/jpm0112" target="_blank" rel="noopener" aria-label="GitHub">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         </a>
         <a href="mailto:jpm0112@auburn.edu" aria-label="Email">
@@ -471,6 +656,6 @@
     </svg>
   </button>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>
