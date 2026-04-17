@@ -105,7 +105,7 @@
           </div>
           <div class="hero__card-tags hero__card-tags--small">
             <span>Currently F-1 Visa</span>
-            <span>OPT/STEM OPT Eligible</span>
+            <span>STEM OPT Eligible</span>
             <span>H-1B1 Eligible (Chile & Singapore only visa)</span>
           </div>
         </div>
@@ -200,7 +200,7 @@
             <span class="stat__label">Years of<br/>Research</span>
           </div>
           <div class="stat reveal" style="--d:1">
-            <span class="stat__number" data-count="8">0</span>
+            <span class="stat__number" data-count="6">0</span>
             <span class="stat__label">Major<br/>Projects</span>
           </div>
           <div class="stat reveal" style="--d:2">
@@ -379,7 +379,7 @@
           <span class="project__num">01</span>
           <div class="project__content">
             <h3>Freight Rate Forecasting with XAI</h3>
-            <p>Applied Temporal Fusion Transformers, LSTMs, and attention models to predict shipping freight rates in Chilean ports. Used LIME and SHAP for interpretability and Bayesian methods for hyperparameter tuning. The explainability analysis revealed key drivers behind rate changes, providing actionable insights for maritime logistics decision-making.</p>
+            <p>Forecasted shipping freight rates in Chilean ports using Temporal Fusion Transformers, LSTMs, and attention-based architectures, with LIME and SHAP for interpretability and Bayesian methods for hyperparameter tuning. The explainability analysis surfaced the main drivers behind rate changes, providing actionable insights for maritime logistics decision making.</p>
             <div class="project__tags">
               <span>PyTorch</span><span>Transformers</span><span>LIME</span><span>SHAP</span><span>Time Series</span>
             </div>
@@ -391,7 +391,7 @@
           <span class="project__num">02</span>
           <div class="project__content">
             <h3>Multi-Objective Flight Scheduling</h3>
-            <p>Built optimization models and heuristics for U.S. Air Force wargaming simulations, scheduling military aircraft and crew across missions while balancing range, refueling, and personnel constraints. Developed MILP formulations and metaheuristic solvers including Simulated Annealing, Tabu Search, and Genetic Algorithms.</p>
+            <p>Developed optimization models and heuristics for U.S. Air Force wargaming simulations, scheduling military aircraft and crews across missions subject to range, refueling, and personnel constraints. The solution approach combines MILP formulations with metaheuristic solvers, including Simulated Annealing, Tabu Search, and Genetic Algorithms.</p>
             <div class="project__tags">
               <span>Pyomo</span><span>Genetic Algorithms</span><span>MILP</span><span>Multi-Objective</span>
             </div>
@@ -403,7 +403,7 @@
           <span class="project__num">03</span>
           <div class="project__content">
             <h3>Closed-Loop Supply Chain Optimization</h3>
-            <p>Built a stochastic programming framework to integrate product development and design decisions into supply chains facing disruptive events, informed by two Norwegian circular manufacturing case studies. Results showed resilience improvements of 4–5% and budget savings of 2–10% while enhancing sustainability and circularity. Published in <em>Omega</em> (2025), done during my visit to NTNU, Norway.</p>
+            <p>Developed a stochastic programming framework that integrates product development and design decisions into supply chains facing disruptive events, informed by two Norwegian circular manufacturing case studies. Results showed resilience improvements of 4–5% and budget savings of 2–10% while enhancing sustainability and circularity. Published in <em>Omega</em> (2025); developed during a research visit at NTNU in Norway.</p>
             <div class="project__tags">
               <span>Stochastic Programming</span><span>MILP</span><span>Supply Chain</span>
             </div>
@@ -416,7 +416,7 @@
           <span class="project__num">04</span>
           <div class="project__content">
             <h3>Two-Dimensional Truck Loading Optimization</h3>
-            <p>Developed a three-stage matheuristic combining MILP models to solve a two-dimensional vehicle loading problem for a Colombian motorcycle assembler with a heterogeneous fleet. The approach maximizes on-time deliveries, minimizes trucks used, and reduces rehandles during unloading. Results showed increased demand fulfillment over one-dimensional methods, especially under relaxed credit constraints.</p>
+            <p>Developed a three-stage matheuristic combining MILP models to solve a two-dimensional vehicle loading problem faced by a Colombian motorcycle assembler operating a heterogeneous fleet. The approach maximizes on-time deliveries, minimizes the number of trucks used, and reduces unloading rehandles during delivery stops. Results showed increased demand fulfillment compared to one-dimensional methods, particularly under relaxed credit constraints.</p>
             <div class="project__tags">
               <span>MILP</span><span>Matheuristic</span><span>Two-Dimensional Bin Packing</span><span>Logistics</span>
             </div>
@@ -428,9 +428,21 @@
           <span class="project__num">05</span>
           <div class="project__content">
             <h3>Drone Order-Picking Optimization</h3>
-            <p>Modeled cooperative drone-worker order-picking in warehouses, starting from independent routing and building up to fully coordinated systems with synchronization, battery constraints, and multi-trip drone scheduling. Built MILP formulations using CVRP with MTZ subtour elimination and Big-M linearizations, minimizing makespan across multiple scenarios.</p>
+            <p>Modeled cooperative order picking by drones and workers in warehouses, starting from independent routing and building up to fully coordinated systems with synchronization, battery constraints, and multi-trip drone scheduling. Formulated the problem as a CVRP with MTZ subtour elimination and Big-M linearizations, minimizing makespan across multiple scenarios.</p>
             <div class="project__tags">
               <span>MILP</span><span>CVRP</span><span>Drones</span><span>Warehousing</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project reveal" style="--d:5">
+          <div class="project__glow"></div>
+          <span class="project__num">06</span>
+          <div class="project__content">
+            <h3>Iterative Semantic Knowledge Distillation for Multi-Agent Algorithm Design</h3>
+            <p>A research prototype in which a swarm of LLM worker agents generate Python heuristics for optimization problems in parallel. The core contribution is a memory management layer: a team of analyst LLMs distill each iteration's results into evolving knowledge documents, and a historian keeps a factual record, both of which the coordinator reads before steering the next round of assignments. Benchmarked on single-machine tardiness, job shop scheduling (OR-Library instances), and MAX-SAT.</p>
+            <div class="project__tags">
+              <span>LLM</span><span>PydanticAI</span><span>Multi-Agent</span><span>Optimization</span><span>Memory Management</span>
             </div>
           </div>
         </article>
@@ -449,10 +461,10 @@
       <div class="projects__grid">
         <article class="project reveal" style="--d:0">
           <div class="project__glow"></div>
-          <span class="project__num">06</span>
+          <span class="project__num">07</span>
           <div class="project__content">
             <h3>Web Development & Showcase Sites</h3>
-            <p>Built several portfolio and business websites, including bilingual company pages, personal sites, and this very portfolio. All with responsive layouts and clean design.</p>
+            <p>Built a range of portfolio and business websites, including bilingual company pages, personal sites, and this portfolio itself, each with responsive layouts and clean visual design.</p>
             <div class="project__tags">
               <span>HTML/CSS</span><span>JavaScript</span><span>Next.js</span><span>Responsive Design</span>
             </div>
@@ -461,10 +473,10 @@
 
         <article class="project reveal" style="--d:1">
           <div class="project__glow"></div>
-          <span class="project__num">07</span>
+          <span class="project__num">08</span>
           <div class="project__content">
             <h3>Health & Fitness Mobile App</h3>
-            <p>Cross-platform mobile app for health and fitness tracking on iOS, Android, and web. Includes nutrition logging, weight tracking, and progress dashboards. Started as an excuse to try AI-powered dev tools (and to avoid paying for fitness apps).</p>
+            <p>Cross-platform mobile application for health and fitness tracking across iOS, Android, and the web, featuring nutrition logging, weight tracking, and progress dashboards. Started as an excuse to try AI-powered development tools (and to avoid paying for fitness apps).</p>
             <div class="project__tags">
               <span>React Native</span><span>SQLite</span><span>iOS</span><span>Android</span>
             </div>
@@ -473,12 +485,24 @@
 
         <article class="project reveal" style="--d:2">
           <div class="project__glow"></div>
-          <span class="project__num">08</span>
+          <span class="project__num">09</span>
           <div class="project__content">
             <h3>Chilean Pension Fund Legal Advisor</h3>
-            <p>Compliance advisor tool for Chilean pension fund administrators (AFPs). Uses a hybrid RAG pipeline with bi-encoder retrieval and cross-encoder reranking over 4,500+ legal document chunks, paired with a QLoRA fine-tuned Qwen2.5-7B model to answer regulatory questions citing relevant legal documentation.</p>
+            <p>A compliance advisor for Chilean pension fund administrators (AFPs). The system combines a hybrid RAG pipeline, with bi-encoder retrieval and cross-encoder reranking over more than 4,500 legal document chunks, with a QLoRA fine-tuned Qwen2.5-7B model that answers regulatory questions while citing the relevant legal documentation.</p>
             <div class="project__tags">
               <span>LLM</span><span>Hybrid RAG</span><span>QLoRA</span><span>Cross-Encoder Reranker</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project reveal" style="--d:3">
+          <div class="project__glow"></div>
+          <span class="project__num">10</span>
+          <div class="project__content">
+            <h3>Emergent Small Town Economy with LLM Agents</h3>
+            <p>A simulation in which LLM agents autonomously run the economy of a small town: they work, start businesses, set their own prices, socialize, and reflect at the end of each day. Business types, products, and custom actions are generated dynamically by the model, with dedicated judge agents validating the plausibility of new businesses and actions before they enter the world. Runs locally on vLLM with Qwen2.5-3B-Instruct.</p>
+            <div class="project__tags">
+              <span>Agent-Based Simulation</span><span>Emergent Economy</span><span>LLM Judges</span><span>LoRA</span><span>RLHF</span>
             </div>
           </div>
         </article>
@@ -518,7 +542,7 @@
             <li>Explainable AI (XAI)</li>
             <li>Time Series Forecasting</li>
             <li>Bayesian Statistics & Optimization</li>
-            <li>LLM Applications (Hybrid RAG, LoRA Fine-Tuning)</li>
+            <li>LLM Applications (Hybrid RAG, LoRA Fine-Tuning, RLHF)</li>
           </ul>
         </div>
         <div class="skill-col reveal">
