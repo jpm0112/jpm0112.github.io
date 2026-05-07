@@ -96,6 +96,35 @@
   reveals.forEach(el => observer.observe(el));
 })();
 
+/* ===== Dynamic Stat Values =====
+   Populates data-count for stats whose values should derive from page state
+   instead of being hard-coded:
+   - data-since="YYYY-MM": years elapsed since that month (floored)
+   - data-source="research-projects": count of project cards in the first
+     .projects__grid (the Research grid that precedes Applied Projects).
+*/
+(function initDynamicStats() {
+  // Years-since computation, floored. Used with data-suffix="+" to render "7+".
+  document.querySelectorAll('[data-since]').forEach(el => {
+    const since = new Date(el.dataset.since + '-01T00:00:00');
+    if (isNaN(since)) return;
+    const now = new Date();
+    const ms = now - since;
+    const years = Math.floor(ms / (365.25 * 24 * 3600 * 1000));
+    if (years >= 0) el.dataset.count = String(years);
+  });
+
+  // Research project count: first .projects__grid contains the Research tier.
+  const projectStat = document.querySelector('[data-source="research-projects"]');
+  if (projectStat) {
+    const researchGrid = document.querySelector('.projects__grid');
+    if (researchGrid) {
+      const count = researchGrid.querySelectorAll('.project').length;
+      if (count > 0) projectStat.dataset.count = String(count);
+    }
+  }
+})();
+
 /* ===== Counter Animation ===== */
 (function initCounters() {
   const counters = document.querySelectorAll('[data-count]');
